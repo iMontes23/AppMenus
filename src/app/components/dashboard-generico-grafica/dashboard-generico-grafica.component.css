@@ -1,0 +1,40 @@
+.card {
+    padding-top: 1rem;
+    margin-top: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-value {
+    margin-bottom: -50px;
+    font-size: 2rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.card-titulo {
+    padding: 0;
+    margin-top: -15px;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.table-card th, .table-card td {
+    border-bottom: 1px solid #999999;
+}
+
+.table-card .value-cell {
+    font-size: 0.6rem;
+    text-align: left;
+    padding: 2px;
+    padding-left: 10px;
+}
+
+.table-card .title-cell {
+    font-size: 1rem;
+    color: #333;
+    text-transform: capitalize;
+    text-align: center;
+    padding-top: 5px;
+}

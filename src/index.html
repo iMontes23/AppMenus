@@ -1,0 +1,48 @@
+<!-- <%@ Language=C# %>
+    
+<%
+	var ISAMUser = Request.ServerVariables["HTTP_IV_USER"];
+	var WINUser = Request.ServerVariables["REMOTE_USER"];
+	var usuarioIsam = WINUser.Replace("\\","-");
+	char[] delimiterChar = {'-'};
+	string[] arrUsuario = usuarioIsam.Split(delimiterChar);
+	if(arrUsuario.Length > 1){
+		usuarioIsam = arrUsuario[1];
+	}
+%> -->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>App Menus</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./favicon.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href='https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' rel='stylesheet'>
+</head>
+<body class="mat-typography">
+  <app-root></app-root>
+  <!-- <script type="text/javascript">
+
+		try {
+			var UsuarioISAM = "<%= Request.ServerVariables["HTTP_IV_USER"] %>"
+			var UsuarioWin = "<% = usuarioIsam %>"
+			/*var UsuarioISAM = "yyy3e03"
+			var UsuarioWin = "yyy3e03"*/
+			
+			if (UsuarioISAM == null || UsuarioISAM == '')
+			{
+				window['varGlobal_User'] =  UsuarioWin
+			 } else {
+				window['varGlobal_User'] = UsuarioISAM ; 
+			}
+	    } catch (error) {
+			console.error(error);
+		}
+
+  </script> -->
+</body>
+</html>

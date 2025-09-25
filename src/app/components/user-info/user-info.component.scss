@@ -1,0 +1,90 @@
+@import '../../../assets/scss/core/variables';
+
+.info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: right;
+    margin-right: 50px;
+    width: 300px;
+    padding: 1px;
+    /* color: $brand-primary; */
+    color: #404040;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 19.1px;
+}
+
+.info p {
+    /* color: $brand-primary; */
+    color: #404040;
+}
+
+.user {
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16.37px;
+    font-family: $font-family-international-regular;
+}
+
+.user-name {
+    text-align: end;
+}
+
+.custom-info {
+    flex: 0 0 100%;
+    max-width: 100%;
+    border: 1px solid $brand-white;
+    min-height: 46px;
+    border-radius: 10px;
+}
+
+.custom-button {
+    background-color: $brand-white;
+    border: 2px solid $brand-gray;
+    height: 60px;
+    width: 45px;
+    border-radius: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.custom-button:hover {
+    background-color:  darken($brand-white, 5%);
+    transform: scale(1.05);
+}
+
+.custom-button i {
+    transform: rotate(-45deg);
+}
+
+@media (max-width: 1100px) {
+    .info {
+        margin-right: 0px;
+    }
+    
+    .custom-info {
+        width: 150px;
+    }
+}
+
+@media (max-width: 1040px) {
+    .info {
+        margin: 0px;
+        width: 50px;
+    }
+    
+    .custom-info {
+        display: none;
+    }
+}
+
+
+@media (max-width: 835px) {
+    .info {
+        display: none;
+    }
+}

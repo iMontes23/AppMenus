@@ -1,0 +1,20 @@
+<section class="fondo">
+    <div class="row">
+        <div class="col-8">
+            <div>
+                <div class="code-error">{{code}}</div>
+                <div class="sms-error">{{message}}</div>
+                <div class="sms-desciption">{{description}}</div>
+                <div><button (click)="regresar()" (keydown.enter)="regresar()" tabindex="0">Regresar</button></div>
+            </div>
+        </div>
+
+        <div class="col-4">
+            <div class="row">
+                <div class="circulo">
+                    <img src='{{imgLogoNavistar}}' alt="Imagen">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,152 @@
+<h6 class="titles">Registro de visita</h6>
+<div class="card-center">
+    <mat-card class="width-main-card mt-2">
+        <form [formGroup]="stateForm">
+            <mat-form-field class="custom-class mt-1" *ngIf="userInformation">
+                <mat-label>Nombre del colaborador:</mat-label>
+                <input matInput formControlName="collaborator">
+            </mat-form-field>
+            <div class="group-container" *ngIf="userGroupDTO">
+                <label>{{ userGroupDTO.length > 1 ? 'Grupos:':'Grupo:' }}</label>
+                <label *ngFor="let group of userGroupDTO; let i = index">
+                    {{ i > 0 ? ', ':'' }} {{ group.nb_grupo }}
+                </label>
+            </div>
+
+            <mat-radio-group formControlName="selectionType" class="custom-radio-group"
+                (change)="onSelectionChange($event)">
+                <mat-label>Su visita está dirigida a:</mat-label>
+                <mat-radio-button *ngFor="let type of entityTypes" [value]="type.cd_Id.toString()">
+                    {{ type.nb_nombre }}
+                </mat-radio-button>
+                <mat-radio-button [value]=-1>
+                    Otros Clientes
+                </mat-radio-button>
+            </mat-radio-group>
+
+            <div class="iscliente">
+                <mat-form-field>
+                    <mat-label *ngIf="selectedEntityType">
+                        Nombre del {{ isCliente || selectedEntityType.cd_Id === 2 ? 'Cliente' :
+                        selectedEntityType.nb_nombre }}:
+                    </mat-label>
+                    <mat-select formControlName="entityType" class="sticky-search" [panelClass]="'custom-select-panel'"
+                        (selectionChange)="onEntitySelected($event.value)">
+                        <mat-option mat-option-sticky class="sticky-option">
+                            <div class="search-container">
+                                <mat-icon class="search-icon">search</mat-icon>
+                                <input type="text" class="mat-filter" matInput placeholder="Buscar..."
+                                    [formControl]="searchInput" (keyup)="onKey($event)"
+                                    (click)="$event.stopPropagation()" autocomplete="off" />
+                            </div>
+                        </mat-option>
+                        <mat-option *ngFor="let entidad of filteredentitiesSelect" [value]="entidad">
+                            {{ entidad.nb_Nombre }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                @if (isCliente) {
+                <button style="margin-top: -12px;" mat-icon-button aria-label="Add client icon" type="button"
+                    (click)="onAddNewClient()" matTooltip="Agregar nuevo cliente" [matTooltipPosition]="'above'">
+                    <mat-icon>person_add</mat-icon>
+                </button>
+                }
+            </div>
+
+            <mat-form-field *ngIf="selectedEntity && selectedEntity.tp_TipoEntidad === 1">
+                <mat-label>Sucursal</mat-label>
+                <mat-select formControlName="branch" class="sticky-search" [panelClass]="'custom-select-panel'">
+
+                    <mat-option mat-option-sticky class="sticky-option">
+                        <div class="search-container">
+                            <mat-icon class="search-icon">search</mat-icon>
+                            <input type="text" class="mat-filter" matInput placeholder="Buscar..."
+                                [formControl]="searchInput2" (keyup)="onKeySucursales($event)"
+                                (click)="$event.stopPropagation()" autocomplete="off" />
+                        </div>
+                    </mat-option>
+                    @for (branch of filteredsucursalesSelect; track branch) {
+                    <mat-option [value]="branch.cd_Sucursal">{{branch.nb_Sucursal}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <div class="row mb-2">
+                <div class="col-lg-4 col-md-12">
+                    <mat-form-field>
+                        <mat-label>Fecha de su visita:</mat-label>
+                        <input matInput [matDatepicker]="picker" formControlName="dateField" name="fecha"
+                            [min]="minDate" [max]="maxDate" placeholder="Fecha de su visita">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        @if (stateForm.get('dateField')?.hasError('required')) {
+                        <mat-error>Ingrese una fecha válida</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <mat-form-field>
+                        <mat-label>Hora inicial de visita</mat-label>
+                        <input matInput [ngxTimepicker]="startTimePicker" formControlName="vistitStartTime"
+                            placeholder="Seleccione el horario" autocomplete="off">
+                        <mat-icon matSuffix>timer</mat-icon>
+                        <ngx-material-timepicker #startTimePicker></ngx-material-timepicker>
+                        @if (stateForm.get('vistitStartTime')?.hasError('invalidTime') ||
+                        stateForm.get('vistitStartTime')?.hasError('required')) {
+                        <mat-error>Ingrese una hora válida</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4 col-md-12">
+                    <mat-form-field>
+                        <mat-label>Hora final de visita</mat-label>
+                        <input matInput [ngxTimepicker]="endTimePicker" formControlName="vistitEndTime"
+                            placeholder="Seleccione el horario" autocomplete="off">
+                        <mat-icon matSuffix>timer</mat-icon>
+                        <ngx-material-timepicker #endTimePicker></ngx-material-timepicker>
+                        @if (stateForm.get('vistitEndTime')?.hasError('invalidTime')) {
+                        <mat-error>Ingrese una hora válida</mat-error>
+                        }
+                    </mat-form-field>
+                </div>
+            </div>
+
+
+            <mat-form-field class="custom-class">
+                <mat-label>Motivo de su visita:</mat-label>
+                <textarea matInput formControlName="reason" rows="4" placeholder="Motivo de su visita"></textarea>
+                @if (stateForm.get('dateField')?.hasError('required')) {
+                <mat-error>El motivo de la visita es requerido</mat-error>
+                }
+            </mat-form-field>
+
+            <div class="row justify-content-between">
+                <div class="col-lg-8 col-md-12 mt-2">
+                    <div class="file-upload-container">
+                        <input #fileInput type="file" name="file" id="file" class="input-file"
+                            accept=".pdf, .doc, .docx, .ppt, .pptx" (change)="onFileChange()">
+
+                        <label for="file" class="btn btn-tertiary js-labelFile" matTooltip="Minutas y presentaciones"
+                            [matTooltipPosition]="'above'" [ngClass]="{'has-file': fileName !== 'Adjuntar archivo'}">
+                            <i class="icon fa fa-check"></i>&nbsp;
+                            <span>{{ fileName }}</span>
+                        </label>
+                        @if (attachedFile != null) {
+                        <button mat-icon-button aria-label="Delete icon" type="button" (click)="onRemoveAttachedFile()"
+                            matTooltip="Remover archivo" [matTooltipPosition]="'above'">
+                            <mat-icon>playlist_remove</mat-icon>
+                        </button>
+                        }
+                    </div>
+                </div>
+
+                <div class="col-lg-4 col-md-12 mt-3 container-right">
+                    <button mat-flat-button (click)="guardar()" [ngClass]="stateForm.invalid ? '' : 'bg-primary-color'"
+                        [disabled]="stateForm.invalid">
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </form>
+    </mat-card>
+</div>

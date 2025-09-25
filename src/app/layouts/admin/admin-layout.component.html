@@ -1,0 +1,18 @@
+<div class="wrapper">
+
+
+    <div class="sidebar">
+        
+        <div class="sidebar-background" [ngClass]="'fondo1'"></div>
+    </div>
+
+    <app-navbar-cmp></app-navbar-cmp>
+
+    <div class="main-panel">
+        <div class="main-content">
+            <router-outlet></router-outlet>
+        </div>
+        <app-footer-cmp></app-footer-cmp>
+    </div>
+</div>
+<app-spinner></app-spinner>

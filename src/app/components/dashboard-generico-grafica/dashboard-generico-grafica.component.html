@@ -1,0 +1,96 @@
+<p *ngIf="graficaCurrent">{{graficaCurrent.titulo}}</p>
+<div class="row" id="filtro">
+    <!-- SELECTOR DE GRAFICA -->
+    <div class="col-12 col-lg-3" *ngIf="dasGraficas && dasGraficas.length > 1">
+        <mat-form-field>
+            <mat-label>Tipo de gráfica</mat-label>
+            <mat-select [(ngModel)]="graficaCurrent.titulo" (selectionChange)="cambioGrafica($event.value)">
+                <mat-option *ngFor="let grafica of dasGraficas" [value]="grafica.titulo">{{grafica.titulo}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <!-- FILTRO DE CADA GRAFICA -->
+    <div class="col-12 col-lg-4" [formGroup]="stateForm">
+        <mat-form-field>
+            <mat-label>Rango de fechas:</mat-label>
+            <mat-date-range-input [rangePicker]="picker">
+                <input matStartDate placeholder="Fecha de inicio" formControlName="dateInicio">
+                <input matEndDate placeholder="Fecha final" formControlName="dateFin"
+                    (dateChange)="onDateChange($event)">
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-date-range-picker #picker></mat-date-range-picker>
+        </mat-form-field>
+    </div>
+
+    <div class="col-12 col-lg-3">
+        <mat-form-field>
+            <mat-label>Grupo de usuario</mat-label>
+            <mat-select (selectionChange)="onGroupSelect($event)"
+                [(ngModel)]="cd_grupo">
+                <mat-option [value]="0" *ngIf="userInformation && userInformation.cd_area === 1">Todos</mat-option>
+                <mat-option *ngFor="let grupo of graficaCurrent.grupos" [value]="grupo.cd_grupo">
+                    {{ grupo.nb_grupo }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+
+    <div class="col-12 col-lg-2">
+        <mat-form-field>
+            <mat-label>Usuario</mat-label>
+            <mat-select (selectionChange)="onUserSelect($event)"
+                [(ngModel)]="cd_usuario">
+                <mat-option [value]="0" *ngIf="userInformation && userInformation.cd_area !== 3">Todos</mat-option>
+                @for (usuario of graficaCurrent.usuarios; track usuario) {
+                <mat-option [value]="usuario.cd_usuario">{{usuario.userName}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12 col-lg-9" *ngIf="show">
+        @for (grafica of graficaCurrent.graficas; track grafica; let i = $index) {
+        <app-grafica-dinamica [grafica]="grafica" [attr.id]="'grafica' + i"></app-grafica-dinamica>
+        }
+    </div>
+
+    <div class="col-12 col-lg-3">
+
+        @for (card of graficaCurrent.cards; track card; let i = $index) {
+        <mat-card class="card"  [attr.id]="'card' + i">
+            <mat-card-content>
+                <div class="card-value">
+                    <p>{{ card.valor }}</p>
+                </div>
+            </mat-card-content>
+            <mat-card-title class="card-titulo">{{ card.titulo }}</mat-card-title>
+        </mat-card>
+        }
+
+        @if(graficaCurrent.actividades.length > 0){
+            <mat-card class="card"  id="actividades">
+                <table class="table-card">
+                    <thead>
+                        <tr>
+                            <th class="title-cell">Día</th>
+                            <th class="title-cell">Actividad</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (actividad of graficaCurrent.actividades; track actividad) {
+                        <tr>
+                            <td class="value-cell">{{ actividad.nb_dia }}</td>
+                            <td class="value-cell">{{ actividad.tx_actividad_con_iniciales }}</td>
+                        </tr>
+                        }
+                    </tbody>
+                </table>
+            </mat-card>
+        }
+        
+    </div>
+</div>

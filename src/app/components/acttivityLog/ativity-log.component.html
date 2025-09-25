@@ -1,0 +1,72 @@
+<h6 class="titles">Registro de Actividades</h6>
+
+<div class="card-center">
+    <mat-card class="width-main-card mt-2 p-4">
+        <form [formGroup]="stateForm" style="min-width: 500px;">
+
+            <!-- Nombre del colaborador -->
+            <mat-form-field class="custom-class mt-1">
+                <mat-label>Nombre del colaborador:</mat-label>
+                <input matInput formControlName="collaborator">
+            </mat-form-field>
+
+            <!-- Grupos del usuario -->
+            <div class="group-container" *ngIf="userGroupDTO?.length">
+                <label>{{ userGroupDTO.length > 1 ? 'Grupos:' : 'Grupo:' }}</label>
+                <label *ngFor="let group of userGroupDTO; let i = index">
+                    {{ i > 0 ? ', ' : '' }}{{ group.nb_grupo }}
+                </label>
+            </div>
+
+            <!-- Tipo de entidad -->
+            <mat-form-field appearance="fill" class="custom-select">
+                <mat-label>Actividad:</mat-label>
+                <mat-select formControlName="activityType">
+                    <mat-option *ngFor="let incident of incidentTypes" [value]="incident.cd_tipoIncidente.toString()">
+                        {{ incident.nb_Incidente }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <!-- Fecha -->
+            <mat-form-field appearance="fill">
+                <mat-label>Fecha de {{ selectedActivityName }}:</mat-label>
+                <mat-date-range-input [formGroup]="stateForm" [rangePicker]="picker" [min]="minDate">
+                    <input matStartDate formControlName="startDate" placeholder="Fecha inicio">
+                    <input matEndDate formControlName="endDate" placeholder="Fecha fin"
+                        (dateChange)="onDateRangeChange()">
+                </mat-date-range-input>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-error
+                    *ngIf="stateForm.get('startDate')?.hasError('required') || stateForm.get('endDate')?.hasError('required')">
+                    Ingrese un rango válido
+                </mat-error>
+            </mat-form-field>
+
+            <!-- Comentario -->
+            <mat-form-field class="custom-class">
+                <mat-label>Comentario:</mat-label>
+                <textarea matInput formControlName="comment" rows="4" placeholder="Motivo de su visita"></textarea>
+            </mat-form-field>
+
+            <!-- Días descartados por ser festivos -->
+            <div *ngIf="diasDescartados.length > 0" class="mt-3">
+                <h6>{{diasDescartados.length > 1 ? 'Días descartados por ser festivos:':'Día descartado por ser festivo:'}}</h6>
+                <ul>
+                    <li *ngFor="let dia of diasDescartados">
+                        {{ dia.ts_fechaCalendario | date: 'fullDate' }}
+                    </li>
+                </ul>
+            </div>
+
+            <!-- Botón -->
+            <div class="row justify-content-end mt-3">
+                <button mat-flat-button (click)="guardar()" [ngClass]="stateForm.valid ? 'bg-primary-color' : ''"
+                    [disabled]="stateForm.invalid">
+                    Guardar
+                </button>
+            </div>
+        </form>
+    </mat-card>
+</div>

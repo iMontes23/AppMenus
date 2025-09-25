@@ -1,0 +1,9 @@
+<app-dashboard-generico-grafica 
+ [dasGraficas]="dasGraficas"
+ *ngIf="show && userInformation"
+ [userInformation]="userInformation"
+ (dateChanged)="onFechaChange($event)" 
+ (groupChanged)="onGroupSelect($event)"
+ (userChanged)="onUserSelect($event)"
+ >
+</app-dashboard-generico-grafica>

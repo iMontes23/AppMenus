@@ -1,0 +1,76 @@
+<div class="row">
+    <div class="col-12 col-lg-5 titulo"> Carga de Días Feriados </div>
+    <div class="col-12 col-lg-5">
+        <mat-form-field>
+            <mat-label>Pais</mat-label>
+            <mat-select formControlName="country" (selectionChange)="onCountrySelect($event)">
+                @for (country of contrys; track country) {
+                <mat-option [value]="country.cd_pais">{{country.nb_pais}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <div class="col-12 col-lg-2 buttom">
+        <button class="custom-button" mat-fab extended (click)="downloadTemplate()">
+            <mat-icon>download</mat-icon>
+            Descargar plantilla
+        </button>
+    </div>
+</div>
+
+<div class="center-container">
+    <button class="custom-button" mat-fab extended (click)="fileInput.click()">
+        <mat-icon>upload_file</mat-icon>
+        Cargar Archivo
+    </button>
+    <button class="custom-button" mat-fab extended *ngIf="dataSource.data.length > 0" (click)="save()"
+        [disabled]="numError > 0">
+        <mat-icon>save</mat-icon>
+        Guardar
+    </button>
+</div>
+
+<input #fileInput type="file" id="fileInput" (change)="selectFile($event)" name="fileInput" style="display: none;" />
+
+<div *ngIf="dataSource.data.length > 0" class="nota-previa">
+    <div *ngIf="dataSource.data.length > 0">
+        <label for="">Vista previa de días feriados.</label>
+    </div>
+    Favor de revisar la información y hacer clic en Guardar si está de acuerdo con los cambios a realizar.
+</div>
+
+<div class="mat-elevation-z8">
+
+    <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="dia">
+            <th mat-header-cell *matHeaderCellDef> Dia Festivo. </th>
+            <td mat-cell *matCellDef="let row"> {{ row.ts_Cal_Fecha ? (row.ts_Cal_Fecha | date: 'dd/MM/yyyy'):'' }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="pais">
+            <th mat-header-cell *matHeaderCellDef> Pais </th>
+            <td mat-cell *matCellDef="let row">{{ row.nb_Pais }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="estatus">
+            <th mat-header-cell *matHeaderCellDef> Estatus </th>
+            <td mat-cell *matCellDef="let row"> {{ row.st_status }} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="observacion">
+            <th mat-header-cell *matHeaderCellDef> Observación </th>
+            <td mat-cell *matCellDef="let row" class="nota">
+                {{ row.st_status === 'Error'? row.tx_nota:'' }}
+            </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+    <mat-paginator [length]="totalElements" [pageSize]="pageSize" [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons
+        aria-label="Select page of periodic elements">
+    </mat-paginator>
+
+</div>

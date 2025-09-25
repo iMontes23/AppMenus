@@ -1,0 +1,19 @@
+
+
+.navbar {
+  display: flex;
+  align-items: center;   /* centra verticalmente */
+  justify-content: space-between;
+  padding: 0 1rem;
+  border-bottom: solid 3px black;
+  border-radius: 16px;
+  height: 55px;
+}
+
+
+img {
+  width: 260px;
+  max-height: 100%;
+}
+
+

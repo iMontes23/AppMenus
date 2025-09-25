@@ -1,0 +1,57 @@
+@import '../../../assets/scss/core/variables';
+
+.titulo {
+    text-align: center;
+}
+
+.buttom {
+    text-align: end;
+}
+
+.center-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+}
+
+.custom-button {
+    background-color: $brand-primary;
+    color: white;
+    padding-top: 2px !important;
+}
+
+.nota-previa {
+    font-size: 11px;
+    background-color: transparent;
+}
+
+.mat-accent.mat-mdc-fab,
+.mat-accent.mat-mdc-mini-fab {
+    height: 40px;
+}
+
+.mat-mdc-header-cell{
+    background-color: $brand-primary !important;
+    color: white;
+    font-size: 16px;
+    border: 1px solid white;
+    text-align: center;
+}
+
+.mdc-data-table__cell, .mdc-data-table__header-cell {
+    padding: 0 40px;
+}
+
+.nota{
+    font-size: 12px;
+    color: red;
+    text-align: center;
+}

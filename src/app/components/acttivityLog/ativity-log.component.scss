@@ -1,0 +1,214 @@
+@import '../../../assets/scss/core/variables';
+
+.titles {
+    font-family: $font-family-international-medium;
+}
+
+form {
+    margin-top: 30px;
+    font-family: $font-family-international-text;
+}
+
+.iscliente {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-radio-group {
+    display: flex;
+    flex-direction: column;
+    margin: 10px;
+}
+
+.group-container {
+    text-align: right;
+    padding-top: 0px;
+    margin-top: -15px;
+    font-family: $font-family-international-text;
+}
+
+.container-right {
+    text-align: right !important;
+    font-family: $font-family-international-text;
+}
+
+.bg-primary-color {
+    background-color: $brand-primary !important;
+}
+
+.custom-class input[disabled] {
+    color: #000000;
+}
+
+.cdk-overlay-pane {
+    pointer-events: none !important;
+}
+
+.cdk-overlay-backdrop {
+    pointer-events: auto !important;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    box-sizing: border-box;
+    background: rgb(255, 255, 255);
+    border: #494949;
+}
+
+.sticky-search {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.search-icon {
+    color: #757575;
+    font-size: 20px;
+}
+
+.mat-filter {
+    flex-grow: 1;
+    padding: 8px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #424242;
+}
+
+.padding-left-0 {
+    padding-left: 0 !important;
+}
+
+.mat-filter::placeholder {
+    color: #9e9e9e;
+    opacity: 1;
+}
+
+::ng-deep span.mdc-list-item__primary-text {
+    width: 100%;
+    display: block;
+}
+
+::ng-deep .custom-select-panel {
+    padding: 0% !important;
+    border: #494949 !important;
+}
+
+::ng-deep .custom-select-panel .search-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1;
+    padding: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    border: #000000;
+}
+
+::ng-deep .custom-select-panel .search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+::ng-deep .custom-select-panel .mat-filter {
+    width: calc(100% - 40px);
+    padding-left: 40px;
+    padding-right: 10px;
+}
+
+::ng-deep .sticky-option {
+    position: sticky !important;
+    top: 0;
+    z-index: 1;
+    border-bottom: 1px solid grey
+}
+
+::ng-deep .timepicker__header {
+    background-color: $brand-primary !important;
+    /* Cambia el color de fondo al rojo */
+}
+
+::ng-deep .timepicker-button {
+    color: $brand-primary !important;
+}
+
+::ng-deep span.active {
+    color: white !important;
+    background-color: $brand-primary !important;
+}
+
+::ng-deep .clock-face__clock-hand {
+    color: white !important;
+    background-color: $brand-primary !important;
+}
+
+/* Color del selector de minutos, al ser --clock-hand-color una variable
+personalizada no reconoce $brand-primary ya que es una variable Sass y
+estará disponible después del proceso de compilación.   */
+::ng-deep ngx-material-timepicker-container {
+    --clock-hand-color: #FF7144 !important; // $brand-primary
+}
+
+.width-main-card {
+    max-width: 57rem !important;
+}
+
+.file-upload-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-tertiary {
+    background-color: white;
+    color: #555;
+    padding: 0;
+    line-height: 40px;
+    width: 27rem;
+    display: block;
+    border: 1px solid #555;
+    border-radius: 12px;
+}
+
+
+.input-file {
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+    z-index: -1;
+
+    +.js-labelFile {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding: 0 10px;
+        cursor: pointer;
+
+        .icon:before {
+            content: "\f093";
+        }
+
+        &.has-file {
+            .icon:before {
+                content: "\f00c";
+                color: #5AAC7B;
+            }
+        }
+    }
+}
+
+
+@media (min-width: 850px) {
+    .card-center {
+        display: flex;
+        justify-content: center;
+    }
+}

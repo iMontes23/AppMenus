@@ -1,0 +1,11 @@
+
+
+  {
+    "production": true,
+    "apiUrl": "http://localhost:55574/api/",
+    "origenExterno": "",
+    "apiUrlInterno": "",
+    "baseHref": "/AppMenus/",
+    "host_public":"evaluet.internationaldelivers.com",
+    "intranet": true
+  }

@@ -1,0 +1,40 @@
+<ul class='nav' *ngIf="menuitems">
+
+
+    <li routerLinkActive='active' *ngFor='let item of menuitems' class='nav-item' #optionElement [id]="item.appCode">
+
+        <!-- Opcciones-->
+       <!--  <a [routerLink]="[item.appCode]" class="nav-link nav-link-custom"
+            *ngIf="(item.items === null || item.items.length === 0 ) && item.appCode !== 'INPUT_VIN' && item.appCode !== 'INPUT_VINWR' && item.urlTarget !== '_BLANK'"
+            routerLinkActive='active'>
+            <div class='label-menu'>{{item.name}}</div>
+        </a> -->
+        <a (click)="loadReport(item)" class="nav-link nav-link-custom"
+            *ngIf="(item.items === null || item.items.length === 0 ) && item.appCode !== 'INPUT_VIN' && item.appCode !== 'INPUT_VINWR' && item.urlTarget !== '_BLANK'"
+            routerLinkActive='active'>
+            <div class='label-menu'>{{item.name}} - nivel 3</div>
+        </a>
+        
+        <a class="nav-link nav-link-custom" (click)="openBlank(item)" (keydown.enter)="openBlank(item)" tabindex="0"
+            *ngIf="(item.items === null || item.items.length === 0 ) && item.appCode !== 'INPUT_VIN' && item.appCode !== 'INPUT_VINWR' && item.urlTarget === '_BLANK'"
+            routerLinkActive='active'>
+            <div class='label-menu'>{{item.name}}</div>
+        </a>
+
+        <!-- modulo -->
+        <a (click)='item.isOpen = !item.isOpen'
+            *ngIf=" item.items !== null && item.items.length > 0 && item.appCode !== 'INPUT_VIN' && item.appCode !== 'INPUT_VINWR'"
+            class='nav-link nav-custom' [ngClass]="{'active': item.isOpen}" (keydown.enter)="item.isOpen = !item.isOpen"
+            tabindex="0" routerLinkActive="active">
+            <div class="iconn bloque"><mat-icon aria-hidden="false"
+                    fontIcon="{{!item.isOpen ? 'arrow_drop_down' : 'arrow_drop_up'}}"></mat-icon>
+            </div>
+            <i class="fa fa-folder-open-o" style="margin-right: 2px;"></i>
+            <div class="label-menu bloque">{{item.name}}</div>
+        </a>
+        <div *ngIf="item.items" class="nav bloque">
+            <app-menu [class.collapse]='!item.isOpen' style="width: 100%;" [menuitems]="item.items"
+                [modulo]="item.appCode" [application]="application"></app-menu>
+        </div>
+    </li>
+</ul>

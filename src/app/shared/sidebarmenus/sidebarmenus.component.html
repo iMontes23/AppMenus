@@ -1,0 +1,59 @@
+<div class="filtro-container">
+    <!-- <i class="fa fa-folder-open-o" style="margin-right: 2px;"></i> -->
+    <i class="fa fa-search search-icon"></i>
+    <input id="inputFiltro" type="text" placeholder="Buscar..." autocomplete="off" [(ngModel)]="filtro"
+        (keyup)=' onTyping($event)'>
+    <div class="close-container">
+        <i class="fa fa-times close-icon" *ngIf="filtro" (click)="limpiaFiltro()"></i>
+    </div>
+</div>
+
+
+
+<nav class=" menu-container">
+   
+    <ul class="arbol">
+        <li *ngFor="let app of menuItemsFilter">
+            <div class="app-header" [ngClass]="app.isOpen ? 'app-header-t' : ''" (click)="app.isOpen = !app.isOpen">
+            <!-- <div class="app-header" (click)="app.isOpen = !app.isOpen"> -->
+
+                <span class="app-title">
+                    <i class="fa" [ngClass]="app.isOpen ? 'fa-folder-open-o' : 'fa-folder-o'" aria-hidden="true"></i>
+                    {{ app.nombre}}
+                </span>
+                <span class="toggle">
+                    <i class="fa" [ngClass]="app.isOpen ? 'fa-chevron-down' : 'fa-chevron-right'"
+                        aria-hidden="true"></i>
+                </span>
+            </div>
+            <ul *ngIf="app.items && app.items.length > 0 && app.isOpen">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: app.items }">
+                </ng-container>
+            </ul>
+        </li>
+    </ul>
+</nav>
+
+
+<ng-template #recursiveList let-items>
+    <ng-container *ngFor="let item of items">
+        <li class="branch">
+
+            <div class="app-header" (click)="item.isOpen = !item.isOpen">
+                <span (click)="loadReport(item)" *ngIf="!item.url">{{ item.nombre}}</span>
+                <a [ngClass]="item.url ? 'rptOpcion' : ''" (click)="loadReport(item)" *ngIf="item.url">{{ item.nombre }}</a>
+
+                <span *ngIf="item.items && item.items.length > 0" class="toggle">
+                    <i class="fa" [ngClass]="item.isOpen ? 'fa-chevron-down' : 'fa-chevron-right'"
+                        aria-hidden="true"></i>
+                </span>
+            </div>
+            <ul *ngIf="item.items && item.items.length > 0 && item.isOpen">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.items }">
+                </ng-container>
+            </ul>
+        </li>
+    </ng-container>
+</ng-template>
+
+<span class="loader" *ngIf="cargando"></span>

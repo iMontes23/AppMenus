@@ -1,0 +1,95 @@
+.width-100 {
+    width: 100%;
+}
+
+::ng-deep .mat-mdc-dialog-surface {
+  background-color: #eee !important;
+}
+
+.custom-modal .mat-mdc-dialog-surface {
+  border-radius: 10px;
+  overflow: hidden; 
+  max-width: 500px;
+}
+
+.custom-modal-header {
+  background-color: #FF7144; 
+  color: white; 
+  font-size: 20px;
+  font-weight: bold;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.custom-modal-content {
+  padding: 20px;
+}
+
+.custom-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 15px;
+  background: #f1f1f1;
+}
+
+.dialog-title {
+  text-align: center;
+  font-weight: bold;
+}
+  
+.full-width {
+  width: 100%;
+  margin-bottom: 10px;
+}
+  
+.suggestion-container {
+  padding: 1px 20px 20px 20px;
+  background-color: #ffffff;
+  border-radius: 4px;
+}
+  
+.suggestions-title {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.suggestions-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.suggestions-list {
+  overflow-y: auto; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  padding: 8px;
+  height: 20vh;
+  overflow-y: scroll;
+}
+
+.suggestion-item {
+  padding: 8px;
+  background-color: #e0e0e0;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.suggestion-item:hover {
+  background-color: #d3d3d3;
+}
+
+.mat-dialog-actions {
+  justify-content: space-between;
+}
+  
+button {
+  font-size: 1rem;
+}
+
+.mat-mdc-dialog-content{
+  padding-top: 30px !important;
+}
+  

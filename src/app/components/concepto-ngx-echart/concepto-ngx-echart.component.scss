@@ -1,0 +1,18 @@
+#contenidoPrincipal {
+    padding: 20px;
+    background-color: #f4f4f4;
+    border: 1px solid #ddd;
+    margin: 0 auto;
+    min-width: 950px; 
+    max-width: 1000px;
+}
+
+.ocultoSoloEnWeb {
+    position: absolute !important;
+    top: -9999px !important;
+    left: -9999px !important;
+    visibility: visible !important; /* Asegura que html2canvas la vea */
+    pointer-events: none;           /* Evita que interfiera con el usuario */
+    user-select: none;
+    opacity: 1;
+  }

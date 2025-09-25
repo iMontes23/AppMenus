@@ -1,0 +1,17 @@
+:host {
+    display: block;
+    height: 100%;
+  }
+  
+  .full-screen-div {
+    background-color: red;
+    width: 100%;
+    height: 100%;
+  }
+
+
+  html, body, app-root {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
