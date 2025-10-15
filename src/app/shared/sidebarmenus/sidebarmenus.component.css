@@ -114,7 +114,8 @@ ul.arbol ul {
   padding: 5px;
   border-radius: 4px;
   color: white;
-  font-size: 13px;
+  /* IGNACIO: Estaba antes como 13px, se aumenta */
+  font-size: 20px;
   height: 40px;
 }
 
@@ -272,3 +273,34 @@ ul.arbol li span.toggle {
 
 }
 
+/* ICG */
+
+.menu-option .tooltip {
+  visibility: hidden;
+  opacity: 0;
+  position: fixed; /* Cambiado de absolute a fixed */
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  transition: opacity 0.3s;
+  z-index: 9999; /* Muy alto para estar encima */
+}
+.menu-option:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
+
+.tooltip-global {
+  position: fixed;
+  background-color: #333;
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 9999;
+  pointer-events: none; /* evita interferir con el mouse */
+}

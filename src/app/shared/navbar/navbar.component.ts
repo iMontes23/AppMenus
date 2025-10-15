@@ -1,6 +1,4 @@
 import { Component, OnInit, ViewChild, ElementRef, inject } from '@angular/core';
-
-
 import { AsyncPipe, CommonModule, Location } from '@angular/common';
 import { filter, map, Observable, startWith, Subscription } from 'rxjs';
 import { Router, NavigationEnd, RouterModule, ActivatedRoute } from '@angular/router';
@@ -83,7 +81,6 @@ export class NavbarComponent implements OnInit {
                 startWith(''),
                 map((value) => this.filterGroup(value || ''))
             );
-
         this.location = location;
         this.sidebarVisible = false;
         this.mobile_menu_visible = 0;
@@ -111,7 +108,6 @@ export class NavbarComponent implements OnInit {
                 sidebar.classList.remove('animation');
             }, 600);
             sidebar.classList.add('animation');
-
         } else {
             setTimeout(function () {
                 body.classList.add('hide-sidebar');
@@ -119,12 +115,10 @@ export class NavbarComponent implements OnInit {
                 misc.hide_sidebar_active = true;
             }, 300);
         }
-
         // we simulate the window Resize so the charts will get updated in realtime.
         const simulateWindowResize = setInterval(function () {
             window.dispatchEvent(new Event('resize'));
         }, 180);
-
         // we stop the simulation of Window Resize after the animations are completed
         setTimeout(function () {
             clearInterval(simulateWindowResize);
@@ -150,7 +144,6 @@ export class NavbarComponent implements OnInit {
                 $layer.remove();
             }
         }); */
-
     }
 
     private filterGroup(value: string): UserApplicationDTO[] {
@@ -205,7 +198,6 @@ export class NavbarComponent implements OnInit {
                         isOpen: false
                     };
                 }else
-
                 if (matchName) {
                     return {
                         ...item,
@@ -226,7 +218,6 @@ export class NavbarComponent implements OnInit {
                         };
                     }
                 }
-
             })
             .filter(item => item.isOpen && (item.appCode !== Constante.DETVIN && item.appCode !== Constante.DETVINWR));
     }
@@ -239,7 +230,6 @@ export class NavbarComponent implements OnInit {
         if (item.url !== null && item.urlTarget === Constante._BLANK) {
             // se seleccion una opcion de tipo _BLANK, se abre en una nueva pestaña
             window.open(item.url, Constante.NEW_TAB);
-
         } else if (item.url !== null) {
             // se seleccion una opcion interna de la aplication
             const appTab = Object.assign({}, application);
@@ -259,7 +249,6 @@ export class NavbarComponent implements OnInit {
             const url = this.router.serializeUrl(
                 this.router.createUrlTree([`${baseHref}${UrlConstante.TAB_APLICATION}`, menu.appCode])
             );
-
             window.open(url, Constante.NEW_TAB);
         }
     }
@@ -275,21 +264,16 @@ export class NavbarComponent implements OnInit {
         setTimeout(function () {
             $toggle.classList.add('toggled');
         }, 430);
-
         const $layer = document.createElement('div');
         $layer.setAttribute('class', 'close-layer');
-
-
         if (body.querySelectorAll('.main-panel')) {
             document.getElementsByClassName('main-panel')[0].appendChild($layer);
         } else if (body.classList.contains('off-canvas-sidebar')) {
             document.getElementsByClassName('wrapper-full-page')[0].appendChild($layer);
         }
-
         setTimeout(function () {
             $layer.classList.add('visible');
         }, 100);
-
         $layer.onclick = () => {
             body.classList.remove('nav-open');
             this.mobile_menu_visible = 0;
@@ -301,7 +285,6 @@ export class NavbarComponent implements OnInit {
                 $toggle.classList.remove('toggled');
             }, 400);
         };
-
         body.classList.add('nav-open');
         this.mobile_menu_visible = 1;
         this.sidebarVisible = true;
@@ -313,7 +296,6 @@ export class NavbarComponent implements OnInit {
         this.toggleButton?.classList.remove('toggled');
         const $layer = document.createElement('div');
         $layer.setAttribute('class', 'close-layer');
-
         this.sidebarVisible = false;
         body.classList.remove('nav-open');
         // $('html').removeClass('nav-open');
@@ -321,11 +303,9 @@ export class NavbarComponent implements OnInit {
         if ($layer) {
             $layer.remove();
         }
-
         setTimeout(function () {
             $toggle?.classList.remove('toggled');
         }, 400);
-
         this.mobile_menu_visible = 0;
     }
 
@@ -342,7 +322,6 @@ export class NavbarComponent implements OnInit {
         if (titlee.charAt(0) === '#') {
             titlee = titlee.slice(1);
         }
-
         for (const item of this.listTitles) {
             if (item.type === 'link' && item.path === titlee) {
                 return item.title;
@@ -369,5 +348,4 @@ export class NavbarComponent implements OnInit {
             this.router.navigate([UrlConstante.HOME]);
         }
     }
-
 }

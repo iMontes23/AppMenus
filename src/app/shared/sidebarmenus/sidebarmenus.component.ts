@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { SecurityService } from '../../services/securiry.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CurrentAccessService } from '../../services/current-access.service';
@@ -11,8 +11,6 @@ import { MenuAppItem } from '../../utilerias/model/menu-app-item';
 import { Mensajes } from '../../services/mensajes';
 import { MensajeConstante } from '../../utilerias/constantes/mensaje-constante';
 
-
-
 @Component({
   selector: 'app-sidebarmenus',
   standalone: true,
@@ -24,8 +22,6 @@ import { MensajeConstante } from '../../utilerias/constantes/mensaje-constante';
   styleUrl: './sidebarmenus.component.css'
 })
 export class SidebarmenusComponent implements OnInit {
-
-
   public menuItems: MenuAppItem[] = [];
   public menuItemsFilter: MenuAppItem[] = [];
   public JSON_TEST: MenuAppItem[] = [
@@ -278,7 +274,7 @@ export class SidebarmenusComponent implements OnInit {
               "parentId": 1,
               "nombre": "FC Fact Cliente",
               "codigo": "FC Fact Cliente",
-              "descripcion": '',
+              "descripcion": "Reporte que muestra la Facturacion del Programa Fleet Control",
               "orden": 0,
               "activo": false,
               "esApp": true,
@@ -314,7 +310,7 @@ export class SidebarmenusComponent implements OnInit {
               "parentId": 1,
               "nombre": "FC Venta Neta Distribuidor",
               "codigo": "FC Venta Neta Distribuidor",
-              "descripcion": '',
+              "descripcion": "Reporte que muestra la Facturacion del Programa Fleet Control",
               "orden": 0,
               "activo": false,
               "esApp": true,
@@ -355,21 +351,35 @@ export class SidebarmenusComponent implements OnInit {
     });
   }
 
+  //ICG
+  private mapMenuItems(items: any[]): any[] {
+    return items.map(item => ({
+      ...item,
+      descripcionOpcion: item.descripcion || item.descripcionOpcion,
+      items: item.items ? this.mapMenuItems(item.items) : []
+    }));
+  }
+
+
   private getApplicationUser() {
     this.securityService.getMenu("AppMenus").subscribe(response => {
-      this.menuItems = response;
-      this.cargando = false;
+      console.log('JSON crudo desde API:', response);
+      // Mapeo para convertir "descripcion" en "descripcionOpcion"
+
+      this.menuItems = this.mapMenuItems(response);
       this.menuItemsFilter = this.menuItems;
       this.currentAccessService.menu = this.menuItems;
-      
-      if(this.menuItems.length ===0 )
-        this.msg.warning("",MensajeConstante.SIN_ACCESO_MENUS)
-      
+      this.cargando = false;
+
+
+      if (this.menuItems.length === 0)
+        this.msg.warning("", MensajeConstante.SIN_ACCESO_MENUS)
+
     });
 
-    /* this.menuItems = this.JSON_TEST;
-    this.menuItemsFilter = this.menuItems; 
-    this.cargando = false; */
+    // this.menuItems = this.JSON_TEST;
+    // this.menuItemsFilter = this.menuItems; 
+    // this.cargando = false;
   }
 
   onTyping(event: KeyboardEvent) {
@@ -384,13 +394,12 @@ export class SidebarmenusComponent implements OnInit {
       .map(m => this.filtrarMenu(m, texto))
       .filter((m): m is MenuAppItem => m !== null);
 
-   /*  const arbolFiltrado = this.menuItems
-      .map(root => this.filtrarMenu(root, texto))
-      .filter((n): n is MenuAppItem => n !== null);
-
-    arbolFiltrado.forEach(root => this.imprimirMenu(root)); */
+    /*  const arbolFiltrado = this.menuItems
+       .map(root => this.filtrarMenu(root, texto))
+       .filter((n): n is MenuAppItem => n !== null);
+ 
+     arbolFiltrado.forEach(root => this.imprimirMenu(root)); */
   }
-
 
   filtrarMenu(nodo: MenuAppItem, filtro: string): MenuAppItem | null {
     const cumple = nodo.nombre.toLowerCase().includes(filtro);
@@ -411,7 +420,6 @@ export class SidebarmenusComponent implements OnInit {
     return null;
   }
 
-
   imprimirMenu(nodo: MenuAppItem, nivel: number = 0) {
     console.log(" ".repeat(nivel * 2) + nodo.nombre);
     if (nodo.items) {
@@ -419,18 +427,36 @@ export class SidebarmenusComponent implements OnInit {
     }
   }
 
-  loadReport(opcionMenuL3: MenuItemDTO) {
+  @Output() menuSelected = new EventEmitter<MenuItemDTO>();
+  loadReport(opcionMenuL3: MenuItemDTO, padre?: MenuItemDTO, subMenu?: MenuItemDTO) {
     if (opcionMenuL3) {
-      this._menusService.MenuSelected(opcionMenuL3);
+
+      const menuMapped: MenuItemDTO = {
+        ...opcionMenuL3,
+        descripcionOpcion: opcionMenuL3.descripcion || opcionMenuL3.descripcionOpcion,
+        nombreMenuPadre: padre?.nombre || '',
+        subMenu: subMenu?.subMenu || '',
+        nombreOpcion: opcionMenuL3.nombreOpcion || ''
+      };
+      this.menuSelected.emit(menuMapped);
+      this._menusService.MenuSelected(menuMapped);
     }
   }
-
   limpiaFiltro() {
     this.filtro = null;
-    this.menuItemsFilter =this.menuItems  
+    this.menuItemsFilter = this.menuItems
+  }
+  tooltipText = '';
+  tooltipX = 0;
+  tooltipY = 0;
+
+  showTooltip(text: string, event: MouseEvent) {
+    this.tooltipText = text;
+    this.tooltipX = event.clientX + 10;
+    this.tooltipY = event.clientY + 10;
+  }
+
+  hideTooltip() {
+    this.tooltipText = '';
   }
 }
-
-
-
-

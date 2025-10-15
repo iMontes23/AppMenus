@@ -29,3 +29,10 @@
     width: 80%
   }
 }
+.logo-container {
+  width: 560px; /* el doble del actual (280px) */
+}
+
+.logo img {
+  max-width: 100%; /* para que escale */
+}

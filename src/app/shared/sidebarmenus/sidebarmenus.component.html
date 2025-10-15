@@ -8,15 +8,10 @@
     </div>
 </div>
 
-
-
 <nav class=" menu-container">
-   
     <ul class="arbol">
         <li *ngFor="let app of menuItemsFilter">
             <div class="app-header" [ngClass]="app.isOpen ? 'app-header-t' : ''" (click)="app.isOpen = !app.isOpen">
-            <!-- <div class="app-header" (click)="app.isOpen = !app.isOpen"> -->
-
                 <span class="app-title">
                     <i class="fa" [ngClass]="app.isOpen ? 'fa-folder-open-o' : 'fa-folder-o'" aria-hidden="true"></i>
                     {{ app.nombre}}
@@ -34,26 +29,36 @@
     </ul>
 </nav>
 
-
-<ng-template #recursiveList let-items>
+<ng-template #recursiveList let-items let-padre="padre">
     <ng-container *ngFor="let item of items">
         <li class="branch">
-
             <div class="app-header" (click)="item.isOpen = !item.isOpen">
-                <span (click)="loadReport(item)" *ngIf="!item.url">{{ item.nombre}}</span>
-                <a [ngClass]="item.url ? 'rptOpcion' : ''" (click)="loadReport(item)" *ngIf="item.url">{{ item.nombre }}</a>
+                <span *ngIf="!item.url" class="menu-option"
+                    (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
+                    (mouseleave)="hideTooltip()" (click)="loadReport(item, padre, item)">
+                    {{ item.nombre }}
+                </span>
 
+                <a *ngIf="item.url" [ngClass]="item.url ? 'rptOpcion' : ''" class="menu-option"
+                    (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
+                    (mouseleave)="hideTooltip()" (click)="loadReport(item, padre, item)">
+                    {{ item.nombre }}
+                </a>
                 <span *ngIf="item.items && item.items.length > 0" class="toggle">
                     <i class="fa" [ngClass]="item.isOpen ? 'fa-chevron-down' : 'fa-chevron-right'"
                         aria-hidden="true"></i>
                 </span>
             </div>
             <ul *ngIf="item.items && item.items.length > 0 && item.isOpen">
-                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.items }">
+                <ng-container *ngTemplateOutlet="recursiveList; context:{ $implicit: item.items, padre: padre}">
                 </ng-container>
             </ul>
         </li>
     </ng-container>
 </ng-template>
+
+<div *ngIf="tooltipText" class="tooltip-global" [style.top.px]="tooltipY" [style.left.px]="tooltipX">
+    {{ tooltipText }}
+</div>
 
 <span class="loader" *ngIf="cargando"></span>

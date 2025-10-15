@@ -1,8 +1,5 @@
-
 @import "../core/cards";
-
 // cards
-
 @import "../core/cards/card-testimonials";
 @import "../core/cards/card-profile";
 @import "../core/cards/card-blog";
@@ -12,43 +9,33 @@
 @import "../core/cards/card-signup";
 @import "../core/cards/card-form-horizontal";
 @import "../core/cards/card-background";
-
 // dashboard Cards
-
 .card {
   box-shadow: 0 1px 4px 0 rgba(0,0,0,0.14);
-
   .table tr:first-child td{
     border-top: none;
   }
-
   .card-title{
     margin-top: 0;
     margin-bottom: 3px;
   }
-
   .card-body{
     padding: $padding-card-body-y 20px;
     position: relative;
 
   }
-
   .card-header {
     z-index: 3 !important;
-
     .card-category{
       margin: 0;
     }
-
     &.card-header-text {
         display: inline-block;
-
         &:after {
             content: "";
             display: table;
         }
     }
-
     &.card-header-icon,
     &.card-header-text {
         i {
@@ -65,7 +52,6 @@
           font-weight: 300;
         }
     }
-
     &.card-header-tabs {
         .nav-tabs {
             background: transparent;
@@ -78,7 +64,6 @@
         }
     }
   }
-
   &.card-plain {
     .card-header {
       &.card-header-icon + .card-body .card-title,
@@ -87,7 +72,6 @@
       }
     }
   }
-
   .card-actions {
       position: absolute;
       z-index: 1;
@@ -96,12 +80,10 @@
       left: 17px;
       right: 17px;
       text-align: center;
-
       .card-header{
         padding: 0;
         min-height: 160px;
       }
-
       .btn {
           padding-left: 12px;
           padding-right: 12px;
@@ -111,18 +93,15 @@
           top: -65px;
       }
   }
-
   &.card-chart {
     .card-footer i:nth-child(1n+2){
       width: 18px;
       text-align: center;
     }
-
     .card-category{
       margin: 0;
     }
   }
-
   .card-body + .card-footer,
   .card-footer{
     padding: 0;
@@ -131,16 +110,13 @@
     border-radius: 0;
     justify-content: space-between;
     align-items: center;
-
     h6 {
       width: 100%;
     }
-
     .stats{
       color: #999999;
       font-size: 12px;
       line-height: 22px;
-
       .card-category{
         padding-top: 7px;
         padding-bottom: 7px;
@@ -157,13 +133,11 @@
   [class*="card-header-"] {
       margin: 0px 15px 0;
       padding: 0;
-
       &:not(.card-header-icon):not(.card-header-text):not(.card-header-image){
         border-radius: $border-radius-base;
         margin-top: -20px;
         padding: 15px;
       }
-
       .card-icon,
       .card-text{
         border-radius: $border-radius-base;
@@ -173,7 +147,6 @@
         margin-right: 15px;
         float: left;
       }
-
       .card-text{
         float: none;
         display: inline-block;
@@ -184,9 +157,7 @@
           margin-top: 0;
         }
       }
-
       position: relative;
-
       .ct-chart{
         .card-title{
             color: $white-color;
@@ -195,7 +166,6 @@
             margin-bottom: 0;
             color: rgba($white-color, .62);
         }
-
         .ct-label{
             color: rgba($white-color, .7);
         }
