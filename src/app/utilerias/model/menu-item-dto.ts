@@ -56,7 +56,7 @@ export class MenuItemDTO {
         this.nombreOpcion = nombreOpcion ?? Constante.EMPTY;
         this.objetivo = objetivo ?? Constante.EMPTY;
         this.nombre = nombre ?? Constante.EMPTY;
-        this.category = category ?? Constante.EMPTY;
+        this.category = category?.replaceAll("#", "/") ?? Constante.EMPTY;
         this.nombreMenu = nombreMenu ?? Constante.EMPTY;
         this.nombreModulo = nombreModulo ?? Constante.EMPTY;
     }

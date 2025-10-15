@@ -27,6 +27,8 @@ export class MenuAppLayoutComponent {
   nombreOpcion: string = '';
   descripcionReporte: string = '';
 
+  
+
   onMenuClick(menu: MenuItemDTO) {
     this.selectedMenu = menu;
     console.log('Menú seleccionado en layout:', menu);
@@ -35,4 +37,9 @@ export class MenuAppLayoutComponent {
     this.nombreOpcion = menu.nombre || '';
     this.descripcionReporte = menu.descripcionOpcion || '';
   }
+
+get formattedCategory(): string {
+  return this.selectedMenu?.category?.replace(/#/g, '/') ?? '';
+}
+
 }

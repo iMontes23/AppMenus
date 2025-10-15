@@ -11,13 +11,12 @@
     <app-navbar-cmp></app-navbar-cmp>
     <div class="descripcion-area" *ngIf="selectedMenu">
         <div class="descripcion-left">
-            <div class="menu-principal"><b>MENU:</b> {{ selectedMenu.nombreMenu }}</div>
-            <div class="submenu"><b>SUB-MENU:</b> {{ selectedMenu.nombreModulo }}</div>
+            <div class="menu-principal"><b>RUTA:</b> </div>
+            <div class="submenu"><b>DESCRIPCION:</b> </div>
         </div>
-        <div class="descripcion-right">
-            <div class="opcion"><b>OPCION:</b> {{ nombreOpcion }}</div>
-            <div class="objetivo"><b>OBJETIVO:</b> {{ selectedMenu.objetivo}}</div>
-            <div class="descripcion"><b>DESCRIPCION:</b> {{ selectedMenu.descripcionOpcion }}</div>
+        <div class="descripcion-right">            
+            <div class="objetivo">{{ selectedMenu.nombreMenu }}/ {{ formattedCategory  }}</div>           
+            <div class="descripcion">{{ selectedMenu.descripcionOpcion }}</div>
         </div>
     </div>
     <div class="report-render-container">
