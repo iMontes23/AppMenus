@@ -16,11 +16,12 @@
     z-index: 10;
 }
 .report-render-container {
-    display: flex;    
-    margin: 20px auto;
-    margin-left: 20%;
+    /* display: flex;     */
+    /* margin: 20px auto; */
+    margin-left: 21%;
     /* margin-top: 210px; */
-    padding: 20px;
+    margin-top: 280px;
+    /* padding: 20px; */
     width: 78%;    
     flex-direction: column;
     justify-content: center;

@@ -35,8 +35,8 @@ export class SecurityService {
   getMenu(appCode: string): Observable<MenuAppItem[]> {
     
     this.userInformation = this.currentAccessService.getUserInformation();
-    //const userID = this.userInformation.userID;
-    const userID ='u01r907'
+    const userID = this.userInformation.userID;
+    //const userID ='yyy3d60'
     var domain = window.location.hostname;
 
     const host_public = environment.host_public;
