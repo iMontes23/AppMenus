@@ -61,3 +61,7 @@
     align-items: flex-start;
     font-size: x-large;
 }
+
+.descripcion-right{
+    margin-left: 2%;
+}

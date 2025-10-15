@@ -12,10 +12,12 @@
     <div class="descripcion-area" *ngIf="selectedMenu">
         <div class="descripcion-left">
             <div class="menu-principal"><b>RUTA:</b> </div>
-            <div class="submenu"><b>DESCRIPCION:</b> </div>
+            <br>
+            <div class="submenu"><b>DESCRIPCIÓN:</b> </div>
         </div>
         <div class="descripcion-right">            
-            <div class="objetivo">{{ selectedMenu.nombreMenu }}/ {{ formattedCategory  }}</div>           
+            <div class="objetivo">{{ selectedMenu.nombreMenu }}{{ formattedCategory  }}</div>
+            <br>
             <div class="descripcion">{{ selectedMenu.descripcionOpcion }}</div>
         </div>
     </div>

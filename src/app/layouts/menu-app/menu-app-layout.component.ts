@@ -39,7 +39,12 @@ export class MenuAppLayoutComponent {
   }
 
 get formattedCategory(): string {
-  return this.selectedMenu?.category?.replace(/#/g, '/') ?? '';
+  const category = this.selectedMenu?.category ?? '';
+  
+  const replaced = category.replace(/#/g, '/');
+  
+  const firstSlashIndex = replaced.indexOf('/');
+  return firstSlashIndex !== -1 ? replaced.substring(firstSlashIndex) : replaced;
 }
 
 }
