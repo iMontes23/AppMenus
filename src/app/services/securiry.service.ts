@@ -35,8 +35,8 @@ export class SecurityService {
   getMenu(appCode: string): Observable<MenuAppItem[]> {
     
     this.userInformation = this.currentAccessService.getUserInformation();
-    //const userID = this.userInformation.userID;
-    const userID ='yyy3d60'
+    const userID = this.userInformation.userID;
+    //const userID ='yyy3d60'
     var domain = window.location.hostname;
 
     const host_public = environment.host_public;
@@ -106,7 +106,7 @@ export class SecurityService {
       let userAuth = (window as any)['UsuarioISAM'];
       userAuth = userAuth ?? "";
 
-      const params = new HttpParams().set('userAuth', "yyy3d60");
+      const params = new HttpParams().set('userAuth', userAuth);
       this.userValidation = this.http.get<UserInformation>(`${this.url}${UrlConstante.GET_USER}`, { params })
         .pipe(
           shareReplay(1),
