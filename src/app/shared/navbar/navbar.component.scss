@@ -1,19 +1,29 @@
-
-
 .navbar {
   display: flex;
   align-items: center;   /* centra verticalmente */
   justify-content: space-between;
   padding: 0 1rem;
   border-bottom: solid 3px black;
+  border-top: solid 3px black;
   border-radius: 16px;
   height: 100px; // ICG de 55px a 100px
 }
-
 
 img {
   width: 260px;
   max-height: 100%;
 }
 
+.logo-nombre {
+    // left: 100px;
+    float: left;
+    width: 33%;
+    height: 100px;
+    // background-color: aqua;
+    // font-family: 'Courier New', Courier, monospace;
+    text-align: left;
+    padding-top: 30px;
+    font-size: 30pt;
+    color: #404040;
 
+}

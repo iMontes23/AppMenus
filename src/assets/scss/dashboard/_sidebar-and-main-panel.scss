@@ -1,9 +1,13 @@
 app-navbar-cmp {
-    position:fixed;
-    width: 78%;
+    position:absolute;
+    display: inline;
+    width: 99%;
     z-index: 3;
     top: 10px;
-    left: 21%;
+    // left: 21%;
+    height: 120px;
+    // margin-right: 1%;
+
 }
 
 .wrapper {
@@ -639,8 +643,17 @@ app-navbar-cmp {
 }
 
 .logo-container {
-    width: 560px;
+    width: 30%;
+    float: left;
+
 }
+// .logo-nombre {
+//     left: 400px;
+//     float: left;
+//     width: 50%;
+//     background-color: aqua;
+
+// }
 
 .logoimg {
     max-width: 100%;
