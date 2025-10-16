@@ -1,10 +1,13 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../components/menu/menu.component';
 import { SidebarmenusComponent } from '../../shared/sidebarmenus/sidebarmenus.component';
 import { RouterOutlet } from '@angular/router';
 import { NavbarComponent } from '../../shared/navbar/navbar.component';
 import { CommonModule } from '@angular/common';
 import { MenuItemDTO } from '../../utilerias/model/menu-item-dto';
+import { CurrentAccessService } from '../../services/current-access.service';
+import { MenusService } from '../../services/menus.service';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-menu-app-layout',
@@ -19,7 +22,7 @@ import { MenuItemDTO } from '../../utilerias/model/menu-item-dto';
   templateUrl: './menu-app-layout.component.html',
   styleUrls: ['./menu-app-layout.component.css']
 })
-export class MenuAppLayoutComponent {
+export class MenuAppLayoutComponent implements OnInit {
   selectedMenu: MenuItemDTO | null = null;
 
   nombreMenuPadre: string = '';
@@ -27,7 +30,14 @@ export class MenuAppLayoutComponent {
   nombreOpcion: string = '';
   descripcionReporte: string = '';
 
-  
+  show: boolean = false;
+
+  constructor(
+    private currentAccessService: CurrentAccessService,
+    private _menusService: MenusService,
+    private sanitizer: DomSanitizer
+  ) {
+  }
 
   onMenuClick(menu: MenuItemDTO) {
     this.selectedMenu = menu;
@@ -38,13 +48,20 @@ export class MenuAppLayoutComponent {
     this.descripcionReporte = menu.descripcionOpcion || '';
   }
 
-get formattedCategory(): string {
-  const category = this.selectedMenu?.category ?? '';
-  
-  const replaced = category.replace(/#/g, '/');
-  
-  const firstSlashIndex = replaced.indexOf('/');
-  return firstSlashIndex !== -1 ? replaced.substring(firstSlashIndex) : replaced;
-}
+  get formattedCategory(): string {
+    const category = this.selectedMenu?.category ?? '';
+
+    const replaced = category.replace(/#/g, '/');
+
+    const firstSlashIndex = replaced.indexOf('/');
+    return firstSlashIndex !== -1 ? replaced.substring(firstSlashIndex) : replaced;
+  }
+
+  ngOnInit(): void {
+    this._menusService.opcionMenu$.subscribe(menu => {
+      this.show = menu.url ? true : false;
+      
+    })
+  }
 
 }
