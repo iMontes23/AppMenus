@@ -33,17 +33,22 @@
     <ng-container *ngFor="let item of items">
         <li class="branch">
             <div class="app-header" (click)="item.isOpen = !item.isOpen">
-                <span *ngIf="!item.url" class="menu-option"
-                    (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
-                    (mouseleave)="hideTooltip()" (click)="loadReport(item, padre, item)">
-                    {{ item.nombre }}
-                </span>
+                
+<span *ngIf="!item.url" class="menu-option"
+              (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
+              (mouseleave)="hideTooltip()">
+          {{ item.nombre }}
+        </span>
 
-                <a *ngIf="item.url" [ngClass]="item.url ? 'rptOpcion' : ''" class="menu-option"
-                    (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
-                    (mouseleave)="hideTooltip()" (click)="loadReport(item, padre, item)">
-                    {{ item.nombre }}
-                </a>
+
+                
+<a *ngIf="item.url" [ngClass]="item.url ? 'rptOpcion' : ''" class="menu-option"
+           (mouseenter)="showTooltip(item.descripcionOpcion || item.descripcion, $event)"
+           (mouseleave)="hideTooltip()" 
+           (click)="loadReport(item, padre, item)">
+          {{ item.nombre }}
+        </a>
+
                 <span *ngIf="item.items && item.items.length > 0" class="toggle">
                     <i class="fa" [ngClass]="item.isOpen ? 'fa-chevron-down' : 'fa-chevron-right'"
                         aria-hidden="true"></i>

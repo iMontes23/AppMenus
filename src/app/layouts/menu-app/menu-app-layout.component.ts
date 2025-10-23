@@ -41,26 +41,31 @@ export class MenuAppLayoutComponent implements OnInit {
 
   onMenuClick(menu: MenuItemDTO) {
     this.selectedMenu = menu;
-    console.log('Menú seleccionado en layout:', menu);
-    this.nombreMenuPadre = menu.nombreMenuPadre || '';
-    this.nombreSubmenu = menu.subMenu || '';
+    console.log('Menu seleccionado:', menu);
+    //this.nombreMenuPadre = menu.nombreMenuPadre || ''; ICG: DEPRECADO
+    //this.nombreSubmenu = menu.subMenu || ''; ICG: DEPRECADO
     this.nombreOpcion = menu.nombre || '';
     this.descripcionReporte = menu.descripcionOpcion || '';
   }
 
-  get formattedCategory(): string {
-    const category = this.selectedMenu?.category ?? '';
+get formattedCategory(): string {
+  const category = this.selectedMenu?.category ?? '';
 
-    const replaced = category.replace(/#/g, '/');
-
-    const firstSlashIndex = replaced.indexOf('/');
-    return firstSlashIndex !== -1 ? replaced.substring(firstSlashIndex) : replaced;
+  if (category.startsWith('REPO#')) {
+    const parts = category.split('#');
+    if (parts.length >= 3) {
+      return `/${parts[2]}`;
+    }
   }
+  const replaced = category.replace(/#/g, '/');
+  const firstSlashIndex = replaced.indexOf('/');
+  return firstSlashIndex !== -1 ? replaced.substring(firstSlashIndex) : replaced;
+}
 
   ngOnInit(): void {
     this._menusService.opcionMenu$.subscribe(menu => {
       this.show = menu.url ? true : false;
-      
+
     })
   }
 

@@ -36,7 +36,7 @@ export class SecurityService {
     
     this.userInformation = this.currentAccessService.getUserInformation();
     const userID = this.userInformation.userID;
-    //const userID ='yyy3d60'
+    //const userID ='u306300'
     var domain = window.location.hostname;
 
     const host_public = environment.host_public;

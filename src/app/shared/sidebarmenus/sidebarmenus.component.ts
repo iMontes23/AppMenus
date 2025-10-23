@@ -334,10 +334,8 @@ export class SidebarmenusComponent implements OnInit {
     private _menusService: MenusService,
     private msg: Mensajes
   ) {
-
     this.imgLogoInternatinal = Constante.EMPTY;
     this.cargando = true;
-
   }
 
   ngOnInit(): void {
@@ -360,21 +358,18 @@ export class SidebarmenusComponent implements OnInit {
     }));
   }
 
-
   private getApplicationUser() {
     this.securityService.getMenu("AppMenus").subscribe(response => {
+      //ICG
       console.log('JSON crudo desde API:', response);
-      // Mapeo para convertir "descripcion" en "descripcionOpcion"
 
       this.menuItems = this.mapMenuItems(response);
       this.menuItemsFilter = this.menuItems;
       this.currentAccessService.menu = this.menuItems;
       this.cargando = false;
 
-
       if (this.menuItems.length === 0)
         this.msg.warning("", MensajeConstante.SIN_ACCESO_MENUS)
-
     });
 
     // this.menuItems = this.JSON_TEST;
@@ -429,13 +424,13 @@ export class SidebarmenusComponent implements OnInit {
 
   @Output() menuSelected = new EventEmitter<MenuItemDTO>();
   loadReport(opcionMenuL3: MenuItemDTO, padre?: MenuItemDTO, subMenu?: MenuItemDTO) {
-    if (opcionMenuL3) {
+    if (opcionMenuL3 && opcionMenuL3.url) {
 
       const menuMapped: MenuItemDTO = {
         ...opcionMenuL3,
         descripcionOpcion: opcionMenuL3.descripcion || opcionMenuL3.descripcionOpcion,
-        nombreMenuPadre: padre?.nombre || '',
-        subMenu: subMenu?.subMenu || '',
+        //nombreMenuPadre: padre?.nombre || '', ICG: DEPRECADO
+        //subMenu: subMenu?.subMenu || '', ICG: DEPRECADO
         nombreOpcion: opcionMenuL3.nombreOpcion || ''
       };
       this.menuSelected.emit(menuMapped);

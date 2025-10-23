@@ -13,14 +13,15 @@ export class MenuItemDTO {
     // IGNACIO: Nueva propiedad para la descripción
     descripcionOpcion?: string;
     descripcion?: string;
-    nombreMenuPadre?: string;
-    subMenu?: string;
+    application?: string;
+    //nombreMenuPadre?: string; ICG: DEPRECADO
+    //subMenu?: string; ICG: DEPRECADO
     nombreOpcion?: string;
     objetivo?: string;
     nombre?: string;
     category?: string;
-    nombreMenu?: string;
-    nombreModulo?: string;
+    //nombreMenu?: string; ICG: DEPRECADO
+    //nombreModulo?: string; ICG: DEPRECADO
 
     constructor(
         appCode: string | null,
@@ -31,14 +32,15 @@ export class MenuItemDTO {
         items: MenuItemDTO[] = [],
         //descripcion: string | null = null // Parámetro opcional
         descripcionOpcion: string | null,
-        nombreMenuPadre: string | null,
-        subMenu: string | null,
+        //nombreMenuPadre: string | null, ICG: DEPRECADO
+        //subMenu: string | null, ICG: DEPRECADO
         nombreOpcion: string | null,
         objetivo: string | null,
         nombre: string | null,
         category: string | null,
-        nombreMenu: string | null,
-        nombreModulo: string | null
+        application: string | null
+        //nombreMenu: string | null, ICG: DEPRECADO
+        //nombreModulo: string | null ICG: DEPRECADO
     ) {
         this.appCode = appCode ?? Constante.EMPTY;
         this.type = type ?? Constante.EMPTY;
@@ -51,13 +53,14 @@ export class MenuItemDTO {
         this.nameAux = name ?? Constante.EMPTY;
         // IGNACIO: Inicializar descripción
         this.descripcionOpcion = descripcionOpcion ?? Constante.EMPTY;
-        this.nombreMenuPadre = nombreMenuPadre ?? Constante.EMPTY;
-        this.subMenu = subMenu ?? Constante.EMPTY;
+        //this.nombreMenuPadre = nombreMenuPadre ?? Constante.EMPTY; ICG: DEPRECADO
+        //this.subMenu = subMenu ?? Constante.EMPTY; ICG: DEPRECADO
         this.nombreOpcion = nombreOpcion ?? Constante.EMPTY;
         this.objetivo = objetivo ?? Constante.EMPTY;
         this.nombre = nombre ?? Constante.EMPTY;
-        this.category = category?.replaceAll("#", "/") ?? Constante.EMPTY;
-        this.nombreMenu = nombreMenu ?? Constante.EMPTY;
-        this.nombreModulo = nombreModulo ?? Constante.EMPTY;
+        this.category = category ?? Constante.EMPTY;//ICG category?.replaceAll("#", "/") ?? Constante.EMPTY;
+        this.application = application ?? Constante.EMPTY;
+        //this.nombreMenu = nombreMenu ?? Constante.EMPTY; ICG: DEPRECADO
+        //this.nombreModulo = nombreModulo ?? Constante.EMPTY; ICG: DEPRECADO
     }
 }
